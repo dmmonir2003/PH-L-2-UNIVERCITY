@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import { StudentRoute } from './app/modules/student/student.route';
 
 const app: Application = express();
 
@@ -7,10 +8,14 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req: Request, res: Response) => {
-  const tast = 10;
+// all application route
 
-  res.send(tast);
-});
+app.use('/api/v1/students', StudentRoute);
+
+const getTestRouteCall = (req: Request, res: Response) => {
+  const tast = 'server is running';
+  res.send(tast.toString());
+};
+app.get('/', getTestRouteCall);
 
 export default app;
