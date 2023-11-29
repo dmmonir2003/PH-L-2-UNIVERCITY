@@ -1,6 +1,9 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { StudentRoute } from './app/modules/student/student.route';
+
+import globalErrorHandeler from './app/middleware/globalErrorHandelar';
+import notFound from './app/middleware/notFound';
+import router from './app/routes';
 
 const app: Application = express();
 
@@ -10,12 +13,18 @@ app.use(cors());
 
 // all application route
 
-app.use('/api/v1/students', StudentRoute);
+app.use('/api/v1', router);
 
-const getTestRouteCall = (req: Request, res: Response) => {
+const testRoute = (req: Request, res: Response) => {
   const tast = 'server is running';
   res.send(tast.toString());
 };
-app.get('/', getTestRouteCall);
+app.get('/', testRoute);
+
+// global error handel file
+app.use(globalErrorHandeler);
+
+// not found api handel
+app.use(notFound);
 
 export default app;

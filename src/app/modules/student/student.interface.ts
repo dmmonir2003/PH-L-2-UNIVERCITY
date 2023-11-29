@@ -1,5 +1,7 @@
 // 1. Create an interface representing a document in MongoDB.
 
+import { Types } from 'mongoose';
+
 export type Gerdian = {
   fatherName: string;
   motherName: string;
@@ -18,13 +20,16 @@ export type Address = {
 };
 
 export type Student = {
+  user: Types.ObjectId;
+  id: string;
   name: UserName;
   email: string;
   contuctNumber: number;
   dathOfBarth: string;
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
-  address: string;
-  gerdian: Gerdian;
-  gender: 'male' | 'famale';
+  address: Address;
+  gerdian?: Gerdian;
+  gender: 'male' | 'female';
   isActive: 'active' | 'blocked';
+  isDeleted: boolean;
 };
